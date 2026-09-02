@@ -1,0 +1,17 @@
+1. Total Budget vs Actual by Month
+SELECT month, SUM(budget) as total_budget, SUM(actual) as total_actual,
+       SUM(actual - budget) as variance
+FROM finance_data
+GROUP BY month;
+
+2. Flag >10% variance
+SELECT month, category, budget, actual,
+       ROUND((actual - budget)/budget*100,1) as pct_var
+FROM finance_data
+WHERE ABS((actual - budget)/budget) > 0.10
+ORDER BY pct_var DESC;
+
+3. Marketing drill-down
+SELECT * FROM finance_data
+WHERE category = 'Marketing' AND month = '2026-03';
+
